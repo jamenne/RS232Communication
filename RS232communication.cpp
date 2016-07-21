@@ -24,7 +24,7 @@ struct termios oldtio,newtio;
 
 int number_of_comports(){
 	char search[50],output[2];
-	sprintf(search,"ls /dev/ttyUSB* | wc -w"); // get word count of list of newtioUSB* devices
+	sprintf(search,"ls /dev/ttyS* | wc -w"); // get word count of list of newtioUSB* devices
 	FILE* pipe = popen(search, "r");
 	if (!pipe) perror("popen()");
 	fscanf(pipe,"%s", output);
@@ -41,14 +41,14 @@ int OpenRS232(int ComNumber, long BaudRate){
 	int ComHandle;
 	char cmd[50], ComName[20];
 	// get the name of COM device(ComNumber) on USB-port with ls
-	  sprintf(cmd,"ls /dev/ttyUSB* | awk 'NR==%d'",ComNumber);
+	  sprintf(cmd,"ls -v /dev/ttyS* | awk 'NR==%d'",ComNumber);
 	  FILE* pipe = popen(cmd, "r");
 	  if(!pipe) perror("popen() failed");
 	  fscanf(pipe,"%s",ComName);
 	  //cout << ComName << " connected." << endl;
 	  pclose(pipe);
 	  //cout << "ComName: " << ComName << endl;
-	  ComHandle = open(ComName, O_RDWR | O_NOCTTY);// | O_NONBLOCK);
+	  ComHandle = open(ComName, O_RDWR | O_NOCTTY | O_NDELAY);// | O_NONBLOCK);
 	  //cout << "ComHandle: " << ComHandle << endl;
 	  if(ComHandle<0) return INVALID_HANDLE_VALUE;
 	  else
