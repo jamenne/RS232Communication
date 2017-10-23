@@ -41,7 +41,7 @@ int OpenRS232(int ComNumber, long BaudRate){
 	int ComHandle;
 	char cmd[50], ComName[20];
 	// get the name of COM device(ComNumber) on USB-port with ls
-	  sprintf(cmd,"ls -v /dev/ttyS* | awk 'NR==%d'",ComNumber);
+	  sprintf(cmd,"ls -v /dev/ttyS[4-5] | awk 'NR==%d'",ComNumber);
 	  FILE* pipe = popen(cmd, "r");
 	  if(!pipe) perror("popen() failed");
 	  fscanf(pipe,"%s",ComName);
