@@ -1,5 +1,5 @@
 # Libary to talk via RS232
- Author: Janine Müller
+ Author: Janine Menne
 
 ## Description
 This Software allows to talk to devices via RS232. 
@@ -18,7 +18,7 @@ make
 ```
 
 ## How to use it
-e.g. in `CMakeLists.txt` of `LEDClass:
+e.g. in `CMakeLists.txt` of `LEDClass`:
 
 ```bash
 add_library(LED ../LEDClass/LED.cpp ../RS232com/RS232communication.cpp)
